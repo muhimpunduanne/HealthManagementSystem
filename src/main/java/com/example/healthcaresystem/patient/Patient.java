@@ -18,34 +18,34 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="patients")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column ( length = 50, nullable = false)
-    @NotBlank
     private String firstName;
-    @NotBlank
     @Column ( length = 50, nullable = false)
     private String lastName;
     @Column(unique = true,nullable = false)
     @Email
-    @NotBlank
     private String email;
     @Column ( length = 20, nullable = false)
-    @NotBlank
     @Pattern(regexp = "^[0-9]+$", message = "Phone must contain only numbers")
     private String phone;
     @Column (  nullable = false)
     @Past(message = "Date of birth must be in the past")
-    @NotNull
     private LocalDate dateOfBirth;
     @ManyToOne
-    @JoinColumn(name = "clinic_id")
+    @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Appointment> appointments ;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<MedicalRecord > medicalRecords ;
+
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicalRecord> medicalRecords;
+
 
 }
