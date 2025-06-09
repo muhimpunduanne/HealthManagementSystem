@@ -2,10 +2,19 @@ package com.example.healthcaresystem.doctor;
 
 import com.example.healthcaresystem.appointment.Appointment;
 import com.example.healthcaresystem.clinic.Clinic;
+import com.example.healthcaresystem.medicalrecord.MedicalRecord;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
-
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +28,13 @@ public class Doctor {
     @Column ( nullable = false,unique = true )
     private String email;
     @ManyToOne
-    @JoinColumn (name = "clinic_id", nullable = false )
+    @JoinColumn(nullable = false)
     private Clinic clinic;
-    @OneToMany (mappedBy = "doctor",cascade = CascadeType.ALL,orphanRemoval = true)
+
+    @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<MedicalRecord> medicalRecords;
+
 }

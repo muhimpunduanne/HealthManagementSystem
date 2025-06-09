@@ -1,4 +1,4 @@
-package com.example.healthcaresystem.appointment;
+package com.example.healthcaresystem.config;
 
 public class AppointmentRepository {
 }

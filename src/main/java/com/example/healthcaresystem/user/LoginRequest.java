@@ -1,4 +1,4 @@
 package com.example.healthcaresystem.user;
 
-public class UserController {
+public class LoginRequest {
 }
